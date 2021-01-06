@@ -8,8 +8,13 @@ import com.github.bekirev.aoc.year2015.day01.VerticalDirection.UP
 fun main() = Day.run(Day01)
 
 object Day01 : Year2015Day(1) {
+    private const val START_FLOOR = 0
+
     override fun first(input: String): String =
-        input.verticalDirections().move(0).toString()
+        input.verticalDirections().move(START_FLOOR).toString()
+
+    override fun second(input: String): String =
+        (input.verticalDirections().firstIndexLeadsToBasementLevel(START_FLOOR) + 1).toString()
 }
 
 typealias Floor = Int
@@ -38,4 +43,16 @@ fun Sequence<VerticalDirection>.move(startFloor: Floor): Floor {
         }
     }
     return floor
+}
+
+fun Sequence<VerticalDirection>.firstIndexLeadsToBasementLevel(startFloor: Floor): Int {
+    var floor = startFloor
+    for ((index, direction) in this.withIndex()) {
+        when (direction) {
+            UP -> ++floor
+            DOWN -> --floor
+        }
+        if (floor == -1) return index
+    }
+    return -1
 }
