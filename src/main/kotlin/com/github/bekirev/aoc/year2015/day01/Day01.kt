@@ -10,11 +10,11 @@ fun main() = Day.run(Day01)
 object Day01 : Year2015Day(1) {
     private const val START_FLOOR = 0
 
-    override fun first(input: String): String =
-        input.verticalDirections().move(START_FLOOR).toString()
+    override fun first(input: String): Int =
+        input.verticalDirections().move(START_FLOOR)
 
-    override fun second(input: String): String =
-        (input.verticalDirections().firstIndexLeadsToBasementLevel(START_FLOOR) + 1).toString()
+    override fun second(input: String): Int =
+        (input.verticalDirections().firstIndexLeadsToBasementLevel(START_FLOOR) + 1)
 }
 
 typealias Floor = Int

@@ -5,8 +5,8 @@ import kotlin.system.measureTimeMillis
 
 abstract class Day(val year: Int, val day: Int) {
     val input: String by lazy { runBlocking { Fetcher.fetchInput(year, day) } }
-    open fun first(input: String): String? = null
-    open fun second(input: String): String? = null
+    open fun first(input: String): Any? = null
+    open fun second(input: String): Any? = null
 
     companion object {
         fun run(aDay: Day) {
