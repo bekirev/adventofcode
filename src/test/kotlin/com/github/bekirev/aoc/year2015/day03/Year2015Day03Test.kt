@@ -77,4 +77,15 @@ class Year2015Day03Test : ShouldSpec({
             startPosition.positions(directions).toList() shouldBe positions
         }
     }
+    should("determine number of positions visited by odd and even directions separately") {
+        forAll(
+            row("", 1),
+            row("^v", 3),
+            row("^>v<", 3),
+            row("^v^v^v^v^v", 11),
+            row("^>^>vv<<^^", 9),
+        ) { input, result ->
+            Year2015Day03.second(input) shouldBeExactly result
+        }
+    }
 })
