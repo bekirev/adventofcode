@@ -4,7 +4,7 @@ import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 abstract class Day(val year: Int, val day: Int) {
-    val input: String = runBlocking { Fetcher.fetchInput(year, day) }
+    val input: String by lazy { runBlocking { Fetcher.fetchInput(year, day) } }
     open fun first(input: String): String? = null
     open fun second(input: String): String? = null
 
