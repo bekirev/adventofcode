@@ -9,16 +9,16 @@ abstract class Day(val year: Int, val day: Int) {
     open fun second(input: String): String? = null
 
     companion object {
-        fun <I, O> run(aDay: Day) {
+        fun run(aDay: Day) {
             with(aDay) {
                 println("Year $year, day $day")
                 measureTimeMillis {
-                    print("First: ${first(input) ?: "unsolved"}")
+                    println("First: ${first(input) ?: "unsolved"}")
                 }.run {
                     println("Time: ${this}ms")
                 }
                 measureTimeMillis {
-                    print("Second: ${second(input) ?: "unsolved"}")
+                    println("Second: ${second(input) ?: "unsolved"}")
                 }.run {
                     println("Time: ${this}ms")
                 }
