@@ -5,9 +5,9 @@ import com.github.bekirev.aoc.year2015.Year2015Day
 import com.github.bekirev.aoc.year2015.day01.VerticalDirection.DOWN
 import com.github.bekirev.aoc.year2015.day01.VerticalDirection.UP
 
-fun main() = Day.run(Day01)
+fun main() = Day.run(Year2015Day01)
 
-object Day01 : Year2015Day(1) {
+object Year2015Day01 : Year2015Day(1) {
     private const val START_FLOOR = 0
 
     override fun first(input: String): Int =

@@ -10,17 +10,17 @@ import io.kotest.matchers.shouldBe
 class Year2015Day01Test : ShouldSpec({
     should("determine a floor") {
         forAll(
-            row("(())", "0"),
-            row("()()", "0"),
-            row("(((", "3"),
-            row("(()(()(", "3"),
-            row("))(((((", "3"),
-            row("())", "-1"),
-            row("))(", "-1"),
-            row(")))", "-3"),
-            row(")())())", "-3"),
+            row("(())", 0),
+            row("()()", 0),
+            row("(((", 3),
+            row("(()(()(", 3),
+            row("))(((((", 3),
+            row("())", -1),
+            row("))(", -1),
+            row(")))", -3),
+            row(")())())", -3),
         ) { input, result ->
-            Day01.first(input) shouldBe result
+            Year2015Day01.first(input) shouldBe result
         }
     }
     should("convert char to direction") {
@@ -53,11 +53,11 @@ class Year2015Day01Test : ShouldSpec({
     }
     should("determine position of the first character that result in -1 floor") {
         forAll(
-            row(")", "1"),
-            row("()())", "5"),
-            row("((())))", "7")
+            row(")", 1),
+            row("()())", 5),
+            row("((())))", 7),
         ) { input, result ->
-            Day01.second(input) shouldBe result
+            Year2015Day01.second(input) shouldBe result
         }
     }
     should("determine index of the first instruction in sequence that result in -1 floor") {
