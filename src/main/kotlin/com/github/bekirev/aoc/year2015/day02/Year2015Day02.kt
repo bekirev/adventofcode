@@ -8,9 +8,16 @@ fun main() = Day.run(Year2015Day02)
 object Year2015Day02 : Year2015Day(2) {
     override fun first(input: String): Int =
         input.splitToSequence("\n")
-            .filter { it.isNotBlank() }
-            .map { it.toBox() }
-            .map { it.totalWrappingPaperNeeded }
+            .filter(String::isNotBlank)
+            .map(String::toBox)
+            .map(Box::totalWrappingPaperNeeded)
+            .sum()
+
+    override fun second(input: String): Int =
+        input.splitToSequence("\n")
+            .filter(String::isNotBlank)
+            .map(String::toBox)
+            .map(Box::totalRibbonNeeded)
             .sum()
 }
 
@@ -27,14 +34,15 @@ data class Box(
     val surfaceArea: Int by lazy {
         2 * length * width + 2 * width * height + 2 * height * length
     }
-    val smallestSideArea: Int by lazy {
-        val sides = mutableListOf(length, width, height)
-        val firstMin = sides.minOrNull()!!
-        sides.remove(firstMin)
-        val secondMin = sides.minOrNull()!!
-        firstMin * secondMin
+    private val twoSmallestSides: List<Int> by lazy {
+        mutableListOf(length, width, height).apply {
+            remove(maxOrNull()!!)
+        }
     }
+    val smallestSideArea: Int by lazy { twoSmallestSides.reduce(Int::times) }
+    val smallestPerimeter: Int by lazy { 2 * twoSmallestSides.reduce(Int::plus) }
+    val volume: Int by lazy { length * width * height }
 }
 
-val Box.totalWrappingPaperNeeded: Int
-    get() = surfaceArea + smallestSideArea
+fun Box.totalWrappingPaperNeeded(): Int = surfaceArea + smallestSideArea
+fun Box.totalRibbonNeeded(): Int = smallestPerimeter + volume

@@ -36,7 +36,7 @@ class Year2015Day02Test : ShouldSpec({
             row(Box(1, 1, 10), 43),
             row(Box(10, 1, 2), 66),
         ) { box, totalWrappingPaper ->
-            box.totalWrappingPaperNeeded shouldBe totalWrappingPaper
+            box.totalWrappingPaperNeeded() shouldBe totalWrappingPaper
         }
     }
     should("calculate surface area") {
@@ -55,6 +55,47 @@ class Year2015Day02Test : ShouldSpec({
             row(Box(10, 1, 2), 2),
         ) { box, surfaceArea ->
             box.smallestSideArea shouldBeExactly surfaceArea
+        }
+    }
+    should("calculate total ribbon for boxes") {
+        forAll(
+            row(
+                """
+                    |2x3x4
+                    |1x1x10
+                    |10x1x2
+                """.trimMargin(),
+                74
+            )
+        ) { boxStr, totalWrappingPaper ->
+            Year2015Day02.second(boxStr) shouldBe totalWrappingPaper
+        }
+    }
+    should("calculate total ribbon for a box") {
+        forAll(
+            row(Box(2, 3, 4), 34),
+            row(Box(1, 1, 10), 14),
+            row(Box(10, 1, 2), 26),
+        ) { box, totalRibbon ->
+            box.totalRibbonNeeded() shouldBeExactly totalRibbon
+        }
+    }
+    should("calculate the smallest perimeter") {
+        forAll(
+            row(Box(2, 3, 4), 10),
+            row(Box(1, 1, 10), 4),
+            row(Box(10, 1, 2), 6),
+        ) { box, surfacePerimeter ->
+            box.smallestPerimeter shouldBeExactly surfacePerimeter
+        }
+    }
+    should("calculate volume of the box") {
+        forAll(
+            row(Box(2, 3, 4), 24),
+            row(Box(1, 1, 10), 10),
+            row(Box(10, 1, 2), 20),
+        ) { box, volume ->
+            box.volume shouldBeExactly volume
         }
     }
 })
