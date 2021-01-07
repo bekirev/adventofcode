@@ -23,8 +23,7 @@ object Year2015Day06 : Year2015Day(6) {
             .sumBy { it.value }
 
     private fun finalGrid(input: String, stateChanger: StateChanger): MutableGrid<LightState> {
-        val size = Size(1000, 1000)
-        val grid: MutableGrid<LightState> = ArrayListMutableGrid(size) { 0 }
+        val grid: MutableGrid<LightState> = ArrayListMutableGrid(Size(1000, 1000)) { 0 }
         input
             .lineSequence()
             .filter(String::isNotBlank)
