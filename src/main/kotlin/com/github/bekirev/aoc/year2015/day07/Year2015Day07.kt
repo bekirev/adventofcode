@@ -7,15 +7,30 @@ fun main() = Day.run(Year2015Day07)
 
 object Year2015Day07 : Year2015Day(7) {
     override fun first(input: String): Int =
-        buildSignalSourceFor(
+        firstAWireSignal
+
+    override fun second(input: String): Int =
+        signalAtAWire(wireToDesc + ("b" to BridgeSignalSourceDescription(ConstantOperand(firstAWireSignal))))
+
+    private fun signalAtAWire(wireToDesc: Map<WireId, SignalSourceDescription>): Int {
+        return buildSignalSourceFor(
             "a",
-            input
-                .lineSequence()
-                .filter(String::isNotBlank)
-                .map(String::toCircuitElementDescription)
-                .map { it.outputWireIdentifier to it.signalSourceDescription }
-                .toMap()
+            wireToDesc
         ).signal.intValue
+    }
+
+    private val firstAWireSignal by lazy {
+        signalAtAWire(wireToDesc)
+    }
+
+    private val wireToDesc by lazy {
+        input
+            .lineSequence()
+            .filter(String::isNotBlank)
+            .map(String::toCircuitElementDescription)
+            .map { it.outputWireIdentifier to it.signalSourceDescription }
+            .toMap()
+    }
 }
 
 fun buildSignalSourceFor(
