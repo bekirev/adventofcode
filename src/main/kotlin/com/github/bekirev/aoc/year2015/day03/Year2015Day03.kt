@@ -1,6 +1,7 @@
 package com.github.bekirev.aoc.year2015.day03
 
 import com.github.bekirev.aoc.day.Day
+import com.github.bekirev.aoc.utils.Position2D
 import com.github.bekirev.aoc.year2015.Year2015Day
 import com.github.bekirev.aoc.year2015.day03.Direction2D.EAST
 import com.github.bekirev.aoc.year2015.day03.Direction2D.NORTH
@@ -38,15 +39,6 @@ fun Char.toDirection2D(): Direction2D = when (this) {
 
 fun String.asDirection2DSequence(): Sequence<Direction2D> =
     asSequence().map(Char::toDirection2D)
-
-data class Position2D(
-    val x: Int,
-    val y: Int,
-) {
-    companion object {
-        val ZERO = Position2D(0, 0)
-    }
-}
 
 fun Position2D.move(direction2D: Direction2D): Position2D = when (direction2D) {
     NORTH -> copy(y = y + 1)

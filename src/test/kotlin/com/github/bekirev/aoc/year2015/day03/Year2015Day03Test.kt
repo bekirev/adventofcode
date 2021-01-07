@@ -1,5 +1,6 @@
 package com.github.bekirev.aoc.year2015.day03
 
+import com.github.bekirev.aoc.utils.Position2D
 import com.github.bekirev.aoc.year2015.day03.Direction2D.EAST
 import com.github.bekirev.aoc.year2015.day03.Direction2D.NORTH
 import com.github.bekirev.aoc.year2015.day03.Direction2D.SOUTH
