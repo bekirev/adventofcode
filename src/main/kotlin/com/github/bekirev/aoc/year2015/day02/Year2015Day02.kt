@@ -7,14 +7,14 @@ fun main() = Day.run(Year2015Day02)
 
 object Year2015Day02 : Year2015Day(2) {
     override fun first(input: String): Int =
-        input.splitToSequence("\n")
+        input.lineSequence()
             .filter(String::isNotBlank)
             .map(String::toBox)
             .map(Box::totalWrappingPaperNeeded)
             .sum()
 
     override fun second(input: String): Int =
-        input.splitToSequence("\n")
+        input.lineSequence()
             .filter(String::isNotBlank)
             .map(String::toBox)
             .map(Box::totalRibbonNeeded)
