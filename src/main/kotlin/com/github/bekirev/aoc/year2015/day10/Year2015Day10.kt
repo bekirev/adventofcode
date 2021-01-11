@@ -8,6 +8,9 @@ fun main() = Day.run(Year2015Day10)
 object Year2015Day10 : Year2015Day(10) {
     override fun first(input: String): Int =
         lookAndSay(input.trim(), 40).length
+
+    override fun second(input: String): Int =
+        lookAndSay(input.trim(), 50).length
 }
 
 fun lookAndSay(sequence: String, iterationsCount: Int): String = when (iterationsCount) {
