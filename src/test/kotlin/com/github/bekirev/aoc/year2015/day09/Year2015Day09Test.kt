@@ -12,4 +12,13 @@ class Year2015Day09Test : ShouldSpec({
         """.trimIndent()
         Year2015Day09.first(input) shouldBeExactly 605
     }
+
+    should("find the distance of the longest route from raw input") {
+        val input = """
+            London to Dublin = 464
+            London to Belfast = 518
+            Dublin to Belfast = 141
+        """.trimIndent()
+        Year2015Day09.second(input) shouldBeExactly 982
+    }
 })
