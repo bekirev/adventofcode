@@ -21,9 +21,11 @@ val ktorVersion = "1.5.0"
 val kotestVersion = "4.3.1"
 val mockitoVersion = "3.6.28"
 val kotlinMockitoVersion = "2.2.0"
+val kotlinJdk8Version = "1.4.21-2"
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinJdk8Version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
