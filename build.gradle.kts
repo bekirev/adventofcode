@@ -1,5 +1,7 @@
 plugins {
-    kotlin("jvm") version "1.4.21"
+    val kotlinVersion = "1.4.21"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
     idea
     id("de.fuerstenau.buildconfig") version "1.1.8"
 }
@@ -22,11 +24,13 @@ val kotestVersion = "4.3.1"
 val mockitoVersion = "3.6.28"
 val kotlinMockitoVersion = "2.2.0"
 val kotlinJdk8Version = "1.4.21-2"
+val kotlinSerializationVersion = "1.0.1"
 
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinJdk8Version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("org.mockito:mockito-core:$mockitoVersion")
