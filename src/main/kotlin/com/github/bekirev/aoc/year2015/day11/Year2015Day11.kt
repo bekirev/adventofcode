@@ -8,8 +8,15 @@ fun main() = Day.run(Year2015Day11)
 
 object Year2015Day11 : Year2015Day(11) {
     private const val PASSWORD_LENGTH = 8
+
     override fun first(input: String): String =
-        generateSequence(AlphabetNumber(input.trim())) { number ->
+        validPasswords(input.trim()).first()
+
+    override fun second(input: String): String =
+        validPasswords(first(input)).drop(1).first()
+
+    private fun validPasswords(start: Password): Sequence<Password> =
+        generateSequence(AlphabetNumber(start)) { number ->
             val original = number.toString(PASSWORD_LENGTH)
             when (val badLetterIndex = original.indexOfFirst(BAD_LETTERS::contains)) {
                 -1 -> number + ONE
@@ -21,7 +28,7 @@ object Year2015Day11 : Year2015Day(11) {
             }
         }
             .map { it.toString(PASSWORD_LENGTH) }
-            .first(String::isValid)
+            .filter(Password::isValid)
 }
 
 typealias Password = String
