@@ -16,9 +16,24 @@ object Year2015Day12 : Year2015Day(12) {
         return Json.parseToJsonElement(input.trim()).sumNumbers()
     }
 
+    override fun second(input: String): Int {
+        return Json.parseToJsonElement(input.trim()).sumNumbers {
+            !containsValue(JsonPrimitive("red"))
+        }
+    }
+
     private fun JsonElement.sumNumbers(): Int = when (this) {
         is JsonPrimitive -> contentOrNull?.toIntOrNull() ?: 0
         is JsonObject -> values.sumBy { it.sumNumbers() }
         is JsonArray -> sumBy { it.sumNumbers() }
+    }
+
+    private fun JsonElement.sumNumbers(isValid: JsonObject.() -> Boolean): Int = when (this) {
+        is JsonPrimitive -> contentOrNull?.toIntOrNull() ?: 0
+        is JsonObject -> {
+            if (isValid()) values.sumBy { it.sumNumbers(isValid) }
+            else 0
+        }
+        is JsonArray -> sumBy { it.sumNumbers(isValid) }
     }
 }
