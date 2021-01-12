@@ -1,5 +1,7 @@
 package com.github.bekirev.aoc.year2015.day09
 
+import com.github.bekirev.aoc.utils.possibleCombinations
+
 class RouteServiceImpl(
     private val routeRepo: RouteRepo,
 ) : RouteService {
@@ -20,20 +22,10 @@ class RouteServiceImpl(
         routes(cities).selector()?.asSequence() ?: throw IllegalArgumentException()
 
     private fun routes(cities: Collection<City>) =
-        possibleCitySequences(cities)
+        cities.possibleCombinations()
             .map {
                 it.asSequence().zipWithNext().map { (from, to) ->
                     routeRepo.route(from, to)
                 }.toList()
             }
-
-    private fun possibleCitySequences(cities: Collection<City>): Sequence<List<City>> {
-        fun possibleCitySequences(start: List<City>, citiesToVisit: Collection<City>): Sequence<List<City>> = when {
-            citiesToVisit.isEmpty() -> sequenceOf(start)
-            else -> citiesToVisit.asSequence().flatMap { nextCity ->
-                possibleCitySequences(start + nextCity, citiesToVisit - nextCity)
-            }
-        }
-        return possibleCitySequences(emptyList(), cities)
-    }
 }
