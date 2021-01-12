@@ -12,15 +12,13 @@ import kotlinx.serialization.json.contentOrNull
 fun main() = Day.run(Year2015Day12)
 
 object Year2015Day12 : Year2015Day(12) {
-    override fun first(input: String): Int {
-        return Json.parseToJsonElement(input.trim()).sumNumbers()
-    }
+    override fun first(input: String): Int =
+        Json.parseToJsonElement(input.trim()).sumNumbers()
 
-    override fun second(input: String): Int {
-        return Json.parseToJsonElement(input.trim()).sumNumbers {
+    override fun second(input: String): Int =
+        Json.parseToJsonElement(input.trim()).sumNumbers {
             !containsValue(JsonPrimitive("red"))
         }
-    }
 
     private fun JsonElement.sumNumbers(): Int = when (this) {
         is JsonPrimitive -> contentOrNull?.toIntOrNull() ?: 0
