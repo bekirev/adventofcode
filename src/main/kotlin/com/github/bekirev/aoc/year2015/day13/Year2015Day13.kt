@@ -1,6 +1,7 @@
 package com.github.bekirev.aoc.year2015.day13
 
 import com.github.bekirev.aoc.day.Day
+import com.github.bekirev.aoc.utils.append
 import com.github.bekirev.aoc.utils.possibleCombinations
 import com.github.bekirev.aoc.year2015.Year2015Day
 import java.util.stream.Collectors
@@ -14,6 +15,29 @@ object Year2015Day13 : Year2015Day(13) {
             .filter(String::isNotBlank)
             .map(String::toHappinessChangeRule)
             .toList()
+        return optimalSeatingArrangementTotalChangeInHappiness(rules)
+    }
+
+    private const val ME: Person = "ME"
+
+    override fun second(input: String): Int {
+        val originalRules = input.lineSequence()
+            .filter(String::isNotBlank)
+            .map(String::toHappinessChangeRule)
+            .toList()
+        val originalPeople = people(originalRules.asSequence())
+        val rules = originalRules.asSequence().append(
+            originalPeople.flatMap { person ->
+                sequenceOf(
+                    HappinessChangeRule(ME, person, 0),
+                    HappinessChangeRule(person, ME, 0),
+                )
+            }
+        ).toList()
+        return optimalSeatingArrangementTotalChangeInHappiness(rules)
+    }
+
+    private fun optimalSeatingArrangementTotalChangeInHappiness(rules: List<HappinessChangeRule>): Int {
         val happinessChange = happinessChanges(rules.asSequence())
         return people(rules.asSequence()).toSet()
             .possibleCombinations()
