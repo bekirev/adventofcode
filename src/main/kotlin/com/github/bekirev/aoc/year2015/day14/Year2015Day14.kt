@@ -9,36 +9,33 @@ object Year2015Day14 : Year2015Day(14) {
     private const val raceTime: Time = 2503
 
     override fun first(input: String): Int {
-        return input.lineSequence()
-            .filter(String::isNotBlank)
-            .map(String::toReindeer)
+        return reindeer(input)
             .map { it.coveredDistance(raceTime) }
             .maxOrNull()!!
     }
+
+    override fun second(input: String): Int {
+        val reindeer = reindeer(input).toSet()
+        val scoreboard = ReindeerScoreboard()
+        repeat(raceTime) {
+            reindeer.forEach(Reindeer::move)
+            val maxPosition = reindeer.asSequence().map(Reindeer::position).maxOrNull()!!
+            scoreboard.addPoint(reindeer.asSequence().filter { it.position == maxPosition }.map(Reindeer::name))
+        }
+        return scoreboard.winner().second
+    }
+
+    private fun reindeer(input: String) =
+        input.lineSequence()
+            .filter(String::isNotBlank)
+            .map(String::toReindeer)
 }
 
 typealias Name = String
 typealias Speed = Int
 typealias Time = Int
 typealias Distance = Int
-
-class Reindeer(
-    private val name: Name,
-    private val speed: Speed,
-    private val flyTime: Time,
-    private val restTime: Time,
-) {
-    fun coveredDistance(time: Time): Distance {
-        val fullCycleTime = flyTime + restTime
-        val fullCyclesCount = time / fullCycleTime
-        val lastCycleFlyTime = when (val lastCycleTime = time % fullCycleTime) {
-            in 0..flyTime -> lastCycleTime
-            else -> flyTime
-        }
-        val timeToRun = fullCyclesCount * flyTime + lastCycleFlyTime
-        return speed * timeToRun
-    }
-}
+typealias Score = Int
 
 fun String.toReindeer(): Reindeer {
     val (name, speed, speedTime, restTime) = split(
