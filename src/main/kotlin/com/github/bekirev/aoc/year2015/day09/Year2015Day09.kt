@@ -12,7 +12,7 @@ object Year2015Day09 : Year2015Day(9) {
         val routeService = routeService(routeRepo)
         val cities = cities(routes.asSequence())
         return routeService.shortestRoute(cities)
-            .sumBy(Route::distance)
+            .sumOf(Route::distance)
     }
 
     override fun second(input: String): Int {
@@ -21,7 +21,7 @@ object Year2015Day09 : Year2015Day(9) {
         val routeService = routeService(routeRepo)
         val cities = cities(routes.asSequence())
         return routeService.longestRoute(cities)
-            .sumBy(Route::distance)
+            .sumOf(Route::distance)
     }
 
     private fun routes(input: String): List<Route> =

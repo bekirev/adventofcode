@@ -20,7 +20,7 @@ object Year2015Day06 : Year2015Day(6) {
     override fun second(input: String): Int =
         finalGrid(input, BrightnessStateChanger)
             .getAll()
-            .sumBy { it.value }
+            .sumOf { it.value }
 
     private fun finalGrid(input: String, stateChanger: StateChanger): MutableGrid<LightState> {
         val grid: MutableGrid<LightState> = ArrayListMutableGrid(Size(1000, 1000)) { 0 }

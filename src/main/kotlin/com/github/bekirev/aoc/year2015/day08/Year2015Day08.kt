@@ -6,15 +6,15 @@ import com.github.bekirev.aoc.year2015.Year2015Day
 fun main() = Day.run(Year2015Day08)
 
 object Year2015Day08 : Year2015Day(8) {
-    private val literalsLength by lazy { input.lineSequence().filter(String::isNotBlank).sumBy(String::length) }
+    private val literalsLength by lazy { input.lineSequence().filter(String::isNotBlank).sumOf(String::length) }
 
     override fun first(input: String): Int {
-        val lengthInMemory = input.lineSequence().filter(String::isNotBlank).sumBy(String::memoryStringLength)
+        val lengthInMemory = input.lineSequence().filter(String::isNotBlank).sumOf(String::memoryStringLength)
         return literalsLength - lengthInMemory
     }
 
     override fun second(input: String): Int {
-        val encodedLength = input.lineSequence().filter(String::isNotBlank).sumBy(String::encodedLength)
+        val encodedLength = input.lineSequence().filter(String::isNotBlank).sumOf(String::encodedLength)
         return encodedLength - literalsLength
     }
 }
