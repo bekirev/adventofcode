@@ -13,7 +13,7 @@ object Year2021Day01 : Year2021Day(1) {
 
     override fun second(input: String): Int =
         input.measurements()
-            .zipWithNNext(3)
+            .windowed(size = 3)
             .map { it.sum() }
             .zipWithNext()
             .speed()
@@ -28,15 +28,4 @@ object Year2021Day01 : Year2021Day(1) {
                 cur - prev
             }
             .count { diff -> diff > 0 }
-
-    private fun <T> Sequence<T>.zipWithNNext(n: Int): Sequence<List<T>> = sequence {
-        var tuple = mutableListOf<T>()
-        for (elem in this@zipWithNNext) {
-            tuple += elem
-            if (tuple.size == n) {
-                yield(tuple)
-                tuple = tuple.subList(1, n).toMutableList()
-            }
-        }
-    }
 }
